@@ -8,4 +8,5 @@ A central AI-driven security watcher
 - Build docker script
   - in local - `docker build -t container_name .`
 - Run docker script
-  - in local - `docker run --rm --env-file .env container_name`
+  - in local inside docker - `docker run --rm --env-file .env container_name`
+  - in local interpretor - `python3 securityhub-csv.py`

@@ -1,2 +1,3 @@
 # environment fiels
 .env
+*.csv
