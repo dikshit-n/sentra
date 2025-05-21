@@ -1,0 +1,29 @@
+{
+  "jobDefinitionName": "demo-sentra-batch-script",
+  "type": "container",
+  "platformCapabilities": ["FARGATE"],
+  "containerProperties": {
+    "image": "122814843942.dkr.ecr.eu-north-1.amazonaws.com/sentra/demo:latest",
+    "executionRoleArn": "arn:aws:iam::122814843942:role/BatchEcsTaskExecutionRole",
+    "jobRoleArn": "arn:aws:iam::122814843942:role/AWSBatchScriptExecutionRole",
+    "fargatePlatformConfiguration": {
+      "platformVersion": "LATEST"
+    },
+    "resourceRequirements": [
+      { "type": "VCPU", "value": "1" },
+      { "type": "MEMORY", "value": "2048" }
+    ],
+    "environment": [
+      { "name": "S3_BUCKET_NAME", "value": "demo-bucket-122814843942" },
+      { "name": "AWS_DEFAULT_REGION", "value": "eu-north-1" }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/aws/batch/securityhub",
+        "awslogs-region": "eu-north-1",
+        "awslogs-stream-prefix": "csv-export"
+      }
+    }
+  }
+}
