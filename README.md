@@ -2,7 +2,7 @@
 
 A central AI-driven security watcher
 
-## Docker Image
+## Commands
 
 - Recommended Local Image Name (demo script) - `sentra/demo/batch-script`
 - Build docker script
@@ -14,3 +14,4 @@ A central AI-driven security watcher
   - Tag your docker image - `docker tag YOUR_LOCAL_IMAGE:tag YOUR_ACCOUNT_ID.dkr.ecr.YOUR_REGION.amazonaws.com/YOUR_REPO_NAME:tag`
   - Authenticate to aws ecr in local terminal - `aws ecr get-login-password | docker login --username AWS --password-stdin YOUR_ACCOUNT_ID.dkr.ecr.YOUR_REGION.amazonaws.com`
   - Push to ECR - `docker push YOUR_ACCOUNT_ID.dkr.ecr.YOUR_REGION.amazonaws.com/YOUR_REPO_NAME:tag`
+  - Register batch job defenition - `aws batch register-job-definition --cli-input-json file://FILE_NAME.json`

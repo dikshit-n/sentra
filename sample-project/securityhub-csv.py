@@ -72,11 +72,12 @@ if __name__ == "__main__":
     findings = fetch_securityhub_findings()
 
     print("""Sanitize finding data (remove sensitive fields)""")
-    sanitized = [sanitize_finding(f) for f in findings]
+    sanitized = [f for f in (sanitize_finding(finding) for finding in findings) if f]
 
     print("""Saving to S3 Bucket""")
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    s3_bucket = os.getenv('AWS_S3_BUCKET_NAME')
+    # s3_bucket = os.getenv('AWS_S3_BUCKET_NAME')
+    s3_bucket = "demo-bucket-122814843942"
     s3_key = f"security-findings/{timestamp}.csv"
     save_to_s3(sanitized, s3_bucket, s3_key)
 
