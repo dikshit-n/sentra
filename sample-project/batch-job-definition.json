@@ -20,7 +20,7 @@
     "logConfiguration": {
       "logDriver": "awslogs",
       "options": {
-        "awslogs-group": "/aws/batch/securityhub",
+        "awslogs-group": "/aws/batch/job",
         "awslogs-region": "eu-north-1",
         "awslogs-stream-prefix": "batch"
       }
