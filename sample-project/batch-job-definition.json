@@ -22,7 +22,7 @@
       "options": {
         "awslogs-group": "/aws/batch/securityhub",
         "awslogs-region": "eu-north-1",
-        "awslogs-stream-prefix": "csv-export"
+        "awslogs-stream-prefix": "batch"
       }
     }
   }
