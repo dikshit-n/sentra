@@ -4,7 +4,7 @@ A central AI-driven security watcher
 
 ## Commands
 
-- Recommended Local Image Name (demo script) - `sentra/demo/batch-script`
+- Recommended Local Image Name - `sentra/main/batch-script`
 - Build docker script
   - in local - `docker build -t container_name .`
 - Run docker script
