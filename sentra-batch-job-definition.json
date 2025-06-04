@@ -1,0 +1,29 @@
+{
+  "jobDefinitionName": "sentra-batch-job-definition",
+  "type": "container",
+  "platformCapabilities": ["FARGATE"],
+  "containerProperties": {
+    "image": "381492075615.dkr.ecr.us-east-1.amazonaws.com/sentra/main/batch-script:latest",
+    "executionRoleArn": "arn:aws:iam::381492075615:role/SentraBatchExecutionRole",
+    "jobRoleArn": "arn:aws:iam::381492075615:role/SentraBatchJobRole",
+    "fargatePlatformConfiguration": {
+      "platformVersion": "LATEST"
+    },
+    "resourceRequirements": [
+      { "type": "VCPU", "value": "1" },
+      { "type": "MEMORY", "value": "2048" }
+    ],
+    "environment": [
+      { "name": "S3_BUCKET_NAME", "value": "sentra-s3-1" },
+      { "name": "AWS_DEFAULT_REGION", "value": "us-east-1" }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "sentra-lg-1",
+        "awslogs-region": "us-east-1",
+        "awslogs-stream-prefix": "sentra-ls-1"
+      }
+    }
+  }
+}
