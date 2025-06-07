@@ -126,19 +126,19 @@ if __name__ == "__main__":
     csv_data = csv_buffer.getvalue()
 
     # Generate summary using Bedrock
-    # print("Generating summary with Claude Instant...")
-    # summary = generate_summary(sanitized)
-    # summary_json = {
-    #     "timestamp": datetime.now().isoformat(),
-    #     "summary": summary,
-    #     "total_findings": len(sanitized),
-    #     "severity_distribution": {
-    #         "CRITICAL": len([f for f in sanitized if f['Severity'] == 'CRITICAL']),
-    #         "HIGH": len([f for f in sanitized if f['Severity'] == 'HIGH']),
-    #         "MEDIUM": len([f for f in sanitized if f['Severity'] == 'MEDIUM']),
-    #         "LOW": len([f for f in sanitized if f['Severity'] == 'LOW']),
-    #     }
-    # }
+    print("Generating summary with Claude Instant...")
+    summary = generate_summary(sanitized)
+    summary_json = {
+        "timestamp": datetime.now().isoformat(),
+        "summary": summary,
+        "total_findings": len(sanitized),
+        "severity_distribution": {
+            "CRITICAL": len([f for f in sanitized if f['Severity'] == 'CRITICAL']),
+            "HIGH": len([f for f in sanitized if f['Severity'] == 'HIGH']),
+            "MEDIUM": len([f for f in sanitized if f['Severity'] == 'MEDIUM']),
+            "LOW": len([f for f in sanitized if f['Severity'] == 'LOW']),
+        }
+    }
 
     # S3 requirements
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -161,7 +161,7 @@ if __name__ == "__main__":
 
     # Upload JSON summary
     # print("Uploading summary to S3...")
-    # json_key = f"security-findings/{timestamp}/summary.json"
-    # save_to_s3(summary_json, s3_bucket, json_key, 'application/json')
+    json_key = f"security-findings/{timestamp}/summary.json"
+    save_to_s3(summary_json, s3_bucket, json_key, 'application/json')
 
     print("Done!")
