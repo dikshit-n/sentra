@@ -72,8 +72,8 @@ def trigger_lambda_notification(bucket, key, recipient_email):
         response = eventbridge.put_events(
             Entries=[
                 {
-                    'Source': 'security.hub.reporter',
-                    'DetailType': 'SecurityFindingsReportGenerated',
+                    'Source': 'sentra.securityhub.reporter',
+                    'DetailType': 'SentraSecurityHubReport',
                     'Detail': json.dumps(event_detail),
                     'EventBusName': 'default'
                 }
@@ -147,21 +147,21 @@ if __name__ == "__main__":
     # save csv data to s3
     print("Uploading findings csv to S3...")
     csv_key = f"security-findings/{timestamp}/findings.csv"
-    save_to_s3(csv_data, s3_bucket, csv_key)
-
-    # Lambda trigger
-    # if save_to_s3(csv_data, s3_bucket, csv_key):
-    #     # Trigger Lambda
-    #     print("Trigger Lambda via EventBridge to send email notification")
-    #     trigger_lambda_notification(
-    #         bucket=s3_bucket,
-    #         key=csv_key,
-    #         recipient_email="dikshitkumarn@gmail.com"
-    #     )
+    csv_upload_status = save_to_s3(csv_data, s3_bucket, csv_key)
 
     # Upload JSON summary
-    # print("Uploading summary to S3...")
+    print("Uploading summary to S3...")
     json_key = f"security-findings/{timestamp}/summary.json"
     save_to_s3(summary_json, s3_bucket, json_key, 'application/json')
+
+    # Lambda trigger
+    if csv_upload_status:
+        # Trigger Lambda
+        print("Trigger Lambda via EventBridge to send email notification")
+        trigger_lambda_notification(
+            bucket=s3_bucket,
+            key=csv_key,
+            recipient_email="dikshit.live@gmail.com"
+        )
 
     print("Done!")
