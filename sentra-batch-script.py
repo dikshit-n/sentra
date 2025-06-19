@@ -80,6 +80,7 @@ def trigger_lambda_notification(bucket, key, recipient_email):
             ]
         )
         print(f"EventBridge trigger sent. Event ID: {response['Entries'][0]['EventId']}")
+        print(f"Event: {response['Entries'][0]}")
         return True
     except Exception as e:
         print(f"Failed to trigger EventBridge: {e}")
